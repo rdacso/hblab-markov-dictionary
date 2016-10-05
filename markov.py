@@ -48,16 +48,16 @@ def make_text(chains):
     text = ""
     # variable to store randomly generated key
     random_key = choice(chains.keys())
+    # adding the first two words to the text string
+    text += random_key[0] + " " + random_key[1] + " "
     # while loop to iterate through dictionary until condiiton is met
     while random_key in chains:
-        # add the random key generated to the text string
-        text += random_key[0] + " " + random_key[1] + " "
         # generate a random value based off of random key
         value = choice(chains.get(random_key))
         # combine second key value with random word for new key pair
         random_key = (random_key[1], value)
-    # add the last word to the text string
-    text += random_key[1]
+        # adding second word of new random key pair to the text string
+        text += random_key[1] + " "
 
     return text
 
@@ -70,7 +70,7 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-
+print chains
 
 #Produce random text
 random_text = make_text(chains)
