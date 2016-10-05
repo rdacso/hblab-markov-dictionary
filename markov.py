@@ -38,21 +38,19 @@ def make_chains(text_string):
     # your code goes here
 
     words = text_string.split()
-    # for item in the length of words - 3 (because we're looking 3 ahead) 
-    for i in range(len(words) - 3):
+    # for item in the length of words - 2  
+    for i in range(len(words) - 2):
         # adding the words 1 and 2 to the dictionary as keys 
         # and the third word as a value
         # conditional for whether this tuple already exists in chain
     
         if (words[i], words[i + 1]) in chains:
             # this is true
-            value = chains[words[i], words[i + 1]]
+            value = chains[(words[i], words[i + 1])]
             value.append(words[i + 2])
 
-            # chains[words[i], words[i + 1]] + chains.append(words[i + 2])
         else:
-            chains[words[i], words[i + 1]] = words[i + 2].split()
-    print chains
+            chains[words[i], words[i + 1]] = [words[i + 2]]
     return chains
 
 
@@ -60,10 +58,18 @@ def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
     text = ""
-
-    print choice(chains.keys())
+    random_key = choice(chains.keys())
+    # if the random key generated exists in the dictionary:
+    while random_key in chains:
+        # add the random key generated to the text string
+        text += random_key[0] + " " + random_key[1]
+        # generate a random value based off of random key
+        value = choice(chains.get(random_key))
+        # combine second key value with random word for new key pair
+        new_random = random_key[1] + value
 
     return text
+
 
 
 input_path = "green-eggs.txt"
@@ -72,11 +78,10 @@ input_path = "green-eggs.txt"
 input_text = open_and_read_file(input_path)
 # print input_text
 # Get a Markov chain
-make_chains(input_text)
+chains = make_chains(input_text)
+# print chains
 
-Produce random text
+#Produce random text
 random_text = make_text(chains)
 
 print random_text
-
-make_chains(chains)
