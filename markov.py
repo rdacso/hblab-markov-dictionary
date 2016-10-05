@@ -61,7 +61,7 @@ def make_text(chains):
 
     text = ""
 
-    # your code goes here
+    print choice(chains.keys())
 
     return text
 
@@ -74,9 +74,9 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 make_chains(input_text)
 
-# Produce random text
-# random_text = make_text(chains)
+Produce random text
+random_text = make_text(chains)
 
-# print random_text
+print random_text
 
-# make_chains(chains)
+make_chains(chains)
